@@ -1,7 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import {Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import {FaEdit} from "react-icons/fa"
+import {FaTrashAlt} from "react-icons/fa"
+
 
 
 export default function DashBoard() {
@@ -13,23 +16,29 @@ export default function DashBoard() {
       setdata(JSON.parse(JSON.stringify(response.data)))
     }, [])
   })
-  //console.log(data)
+  // console.log(data)
 
   const editemployee = (d) => {
-  let { id, firstname, lastname, email, phonenumber} = d
+  let { id, firstname, lastname ,email, phonenumber,password} = d
   localStorage.setItem("ID", id)
   localStorage.setItem("FirstName", firstname)
   localStorage.setItem("LastName", lastname)
   localStorage.setItem("Email", email)
   localStorage.setItem("PhoneNumber", phonenumber)
+  localStorage.setItem("Password", password)
 
 
 }
 
-function deletefun(id) {
+function deletefun(email) {
   try{
-    axios.delete(`http://localhost:8082/Employees/delete/${id}`);
-    setdata(data.filter(d => d.id !== id ));
+    axios.delete(`http://localhost:8082/Employees/delete/${email}`,
+    {
+      headers :{
+        'Authorization' : "Bearer " + window.localStorage.getItem("jwt")
+    }
+  });
+    setdata(data.filter(d => d.email !== email ));
   }
   catch(err){
     console.error(err);
@@ -40,7 +49,8 @@ function deletefun(id) {
   
     <div>
       <Container>
-      <p className='text-center'>employee List</p>
+      
+      <h3 className='text-center'>Employee List</h3>
       {/* <Link to="/add-employee"> */}
       {/* <button className="btn btn-primary" onClick={addemployee}> Add employee</button> */}
 
@@ -51,12 +61,14 @@ function deletefun(id) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
               <th>Email id</th>
-              <th>PhoneNumber</th>
+              <th>Phonenumber</th>
               
-              <th>Actions</th>
+              <th>Update</th>
+              <th>Delete</th>
+
             </tr>
           </thead>
 
@@ -74,13 +86,21 @@ function deletefun(id) {
                 <td>{employee.city}</td>
                 <td>{employee.state}</td> */}
                 <td>
-                  <Link to={"/update/" + employee.id} >
-                    <td><button onClick={() => editemployee(employee)} className="btn btn-info">Update</button></td>
+                  <center>
+                  <Link to={"/update/" + employee.email} >
+                    <a href=' ' style={{color:"green"}}  onClick={() => editemployee(employee)} variant="dark" size='sm'><FaEdit/></a>
                   </Link>
-                  <td>
-                    <button className="btn btn-info" onClick={() => deletefun(employee.id)}>Delete</button>
+                  </center>
                   </td>
-                </td>
+                    <td>
+
+                      
+
+                    <center>
+                    <a href=' ' style={{color:"red"}} onClick={() => deletefun(employee.email)}><FaTrashAlt/></a>
+                    </center>
+                  </td>
+                {/* </td> */}
                 {/* <td>
                   <button className="btn btn-info">Edit</button>
                   <button className="btn btn-info">Delete</button>
