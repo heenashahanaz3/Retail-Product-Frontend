@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import axios from "axios";
 import loginpic from "../assets/loginpic.jpg";
+import {FiLogIn} from "react-icons/fi"
 
 
 function Login() {
