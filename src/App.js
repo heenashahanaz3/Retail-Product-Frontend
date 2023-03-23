@@ -2,14 +2,17 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
-import DashBoard from './components/DashBoard'
 import Header from './components/Header'
-import Update from './components/Update'
 import Passwordverificationpage from './components/PasswordVerificationPage'
-import Calculator from './components/calculator'
-import Todo from './components/Todo'
-//import Context from './components/Context/Context'
-//import Filter from './components/Filter'
+import YourOrders from './components/YourOrders'
+import HomePage from './components/HomePage'
+import Productcatlog from './components/Productcatlog'
+import Productpage from './components/Productpage'
+import Cartpage from './components/Cartpage'
+import CheckoutAndplaceorderpage from './components/CheckoutAndplaceorderpage'
+import Paymentpage from './components/Paymentpage'
+import AutoLogoutPage from './components/AutoLogoutPage'
+
 
 const App = () => {
   return (
@@ -19,19 +22,22 @@ const App = () => {
     
         {window.localStorage.getItem('jwt') ?
           <Routes>
-            <Route path='/dashboard' element={<DashBoard />} />
-            <Route path='/update/:id' element={<Update />} />
-            <Route path='/calculator' element={<Calculator />} />
-            <Route path='/todo' element={<Todo />} />
-            {/* <Route path='/addCompany' element={<Context />} />
-            <Route path='/searchcity' element={<Filter />} /> */}
-
+            <Route path='/catlog' element={<Productcatlog />} />
+            <Route path='/productdetails' element={<Productpage  />} />
+            <Route path='/cart' element={<Cartpage />} />
+            <Route path='/orderpage' element={<CheckoutAndplaceorderpage />} />
+            <Route path='/payment' element={<Paymentpage />} />
+            <Route path='/yourorders' element={<YourOrders/>} />
+          
           </Routes>
           :
           <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path ='/' element = {<HomePage />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/verificationpage' element={<Passwordverificationpage />} />
+          <Route path='/sessionlogoutpage' element={<AutoLogoutPage/>} />
+          
         </Routes>
         }
         

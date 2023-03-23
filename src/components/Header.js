@@ -1,8 +1,7 @@
 import React from 'react'
 import { Container, Nav, Navbar, NavbarBrand } from 'react-bootstrap'
-//import { Link } from 'react-router-dom'
-import {FiLogOut} from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import {BsCart4} from 'react-icons/bs'
 
 
 const Header = () => {
@@ -20,41 +19,29 @@ const Header = () => {
       <Navbar bg="dark" variant="dark">
 
 <Container>
-    <NavbarBrand href="/"><center>Employee Management System</center></NavbarBrand>
+    <NavbarBrand href="/"><center>Retail Web Application</center></NavbarBrand>
     <Nav>
-            {/* <Link className="btn btn-primary" to="/add">Add Employee</Link>{" "} */}
-            {/* <Link className="btn btn-danger" to="/">Logout</Link> */}
             {
               window.localStorage.getItem('jwt') ? 
 
               <>
-              <Nav.Link onClick={h => nav('/dashboard')}>Home</Nav.Link>&nsbp
-              <Nav.Link onClick={c => nav('/calculator')}>Calculator</Nav.Link>&nsbp
-              <Nav.Link onClick={e => nav('/todo')} >Todo</Nav.Link>&nsbp
-              <Nav.Link onClick={e => logout(e)} >Logout <FiLogOut/></Nav.Link>&nsbp
+              <Nav.Link onClick={h => nav('/catlog')}>Home</Nav.Link>&nsbp
+              <Nav.Link onClick={e => nav('/cart')}>Cart <BsCart4 /></Nav.Link>&nsbp
+              <Nav.Link onClick={e => nav('/yourorders')}>Your Orders </Nav.Link>&nsbp
+              <Nav.Link onClick={e => logout(e)} >Logout </Nav.Link>&nsbp
               </>
          
-              : null
+              : 
+              <>
+              <Nav.Link onClick={h => nav('/')}>Home</Nav.Link>&nsbp
+              <Nav.Link onClick={h => nav('/login')}>Login</Nav.Link>&nsbp
+              <Nav.Link onClick={h => nav('/signup')}>SignUp</Nav.Link>&nsbp
+              
+              </>
             }
     </Nav>
-    
-
 </Container>
-
 </Navbar>
-        {/* <header >
-          <nav >
-
-            <div style={{ textAlign: 'absolute', backgroundColor: "black", position: 'center', color: 'white', height: 85 }}><h3><br/>Employee Management System</h3>
-            {
-              window.localStorage.getItem('jwt') ? 
-              <Nav.Link onClick={e => logout(e)} >Logout</Nav.Link>
-              : null
-            }
-            </div><br /><br />
-          
-          </nav>
-        </header>   */}
     </div>
   )
 }
